@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Conda / environments
+.env
+.venv
+env/
+pfpc/
+
+# Data & artifacts (DO NOT COMMIT)
+artifacts/*.npz
+artifacts/*.joblib
+artifacts/*.csv
+data/
+outputs/
+
+# Model weights
+*.pt
+*.pth
+
+# OS
+.DS_Store
+Thumbs.db
