@@ -1,24 +1,16 @@
-#scripts/make_y_val.py
-
-import argparse
-from scipy import sparse
 import numpy as np
+from scipy import sparse
+import argparse
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--y", required=True, help="Input sparse label matrix")
-    parser.add_argument("--out", required=True, help="Output validation label matrix")
-    parser.add_argument("--val_size", type=int, default=16481)
-    args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("--y", required=True)
+parser.add_argument("--out", required=True)
+args = parser.parse_args()
 
-    Y = sparse.load_npz(args.y)
+Y = sparse.load_npz(args.y)
+val_idx = np.load("artifacts/val_indices.npy")
 
-    # Use the LAST samples as validation (must match training split)
-    Y_val = Y[-args.val_size:]
+Y_val = Y[val_idx]
+sparse.save_npz(args.out, Y_val)
 
-    sparse.save_npz(args.out, Y_val)
-
-    print("Y_val shape:", Y_val.shape)
-
-if __name__ == "__main__":
-    main()
+print("Y_val shape:", Y_val.shape)
